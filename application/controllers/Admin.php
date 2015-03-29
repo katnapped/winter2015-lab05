@@ -44,5 +44,26 @@ class Admin extends Application
         $this->data['pagebody'] = 'add_quote'; 
         $this->render(); 
     }  
+    
+    function confirm() {
+        $record = $this->quotes->create();
+        // Extract submitted fields
+        $record->id = $this->input->post('id');
+        $record->who = $this->input->post('who');
+        $record->mug = $this->input->post('mug');
+        $record->what = $this->input->post('what');
+            
+        // Save stuff
+        if (empty($record->id))
+        {
+            $this->quotes->add($record);
+        }
+        else
+        {
+            $this->quotes->update($record);
+        }
+        redirect('/admin');
+
+    }
 
 }
